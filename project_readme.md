@@ -97,8 +97,8 @@ To guarantee deterministic and reproducible experimental results, fixed random s
 ---
 
 ## 7. Team Members
-* **Member 1:** *[Name & Student ID]* – Dataset preprocessing, Haversine distance matrix, README documentation
-* **Member 2:** *[Name & Student ID]* – Brute-Force and Greedy baseline implementations
-* **Member 3:** *[Name & Student ID]* – Genetic Algorithm core operators (Selection, Ordered Crossover, Inversion Mutation)
-* **Member 4:** *[Name & Student ID]* – Statistical benchmarking (10-run evaluation) and Matplotlib visualizations
-* **Member 5:** *[Name & Student ID]* – Hyperparameter experimentation and report/presentation integration
+* **Member 1:** *[Rami / 9176391]* 
+* **Member 2:** *[Jordan / 7712674]* 
+* **Member 3:** *[Taha / 8328997]* 
+* **Member 4:** *[Mohammad / 7449148]* 
+* **Member 5:** *[Tasnia / 9095822]* 
