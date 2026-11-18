@@ -20,7 +20,7 @@ This repository contains a Python implementation of a **Genetic Algorithm (GA)**
 ├── 218_Project.ipynb              # Main Jupyter Notebook (data processing, algorithms, experiments, plots)
 ├── talabat_enhanced_orders.csv    # Synthetic delivery-order dataset (source in Section 3)
 ├── requirements.txt               # Python packages needed to run the notebook
-├── results/                       # CSV tables and figures written by Step 6 of the notebook
+├── results/                       # CSV tables and figures written by Steps 6 and 8 of the notebook
 └── README.md                      # Project documentation and setup instructions
 ```
 
@@ -108,6 +108,23 @@ Each batch takes the non-cancelled Cairo orders from one hour. Every route start
 | **C. GA vs greedy** (hub + 20 drop-offs) | The GA saved **9.4%** distance on average (range −6.0% to 22.7%): **86 wins, 3 ties, 11 losses** in 100 runs. Its average route was shorter in 9 of 10 batches. One GA run takes about 0.9 s. |
 
 Figures: `results/route_over_generations.png` (best route so far at generations 1, 10, 25, 50, 100 and 400 of one run) and `results/experiment_summary.png` (brute-force time vs stops, and greedy vs GA per batch).
+
+### Step 7: Tests
+18 checks of the building blocks all pass: haversine (latitude and longitude), route length, brute force, greedy, population, crossover, mutation, tournament selection, and the full GA on 6 stops (starting from 10 random routes that miss the optimum, it evolves to the brute-force optimum). The GA needs at least 3 stops (hub + 2 drop-offs). With only 2 stops, crossover and mutation cannot pick two different positions, so it stops with an error.
+
+### Step 8: Mutation Rate (Experiment D)
+The same 10 batches, 5 seeds each (42–46). Only the mutation rate changes; population 120 and 400 generations stay the same.
+
+| Mutation rate | Exact optimum found (10 stops) | Mean gap to optimum (10 stops) | Mean saving over greedy (21 stops) |
+| :---: | :---: | :---: | :---: |
+| 0.0 | 28% | 3.32% | −13.6% |
+| **0.15 (default)** | 84% | 0.47% | 9.5% |
+| 0.5 | 100% | 0.00% | 10.8% |
+| 0.8 | 100% | 0.00% | 11.5% |
+
+Without mutation the GA stops improving early (median generation 16 on 21 stops), and its 21-stop routes are on average 13.6% longer than greedy's (worse in 38 of 50 runs). On 10 stops it finds the exact optimum in only 28% of runs. Our default rate of 0.15 is not the best rate we tried: 0.5 and 0.8 found the exact optimum in every 10-stop run, and 0.8 gave the largest saving on 21 stops. Step 6 keeps 0.15 so the main results are not tuned on the batches they are reported on, which makes them slightly pessimistic for the GA. The rates were compared on the same batches, with the other settings fixed, so the gain may be a little smaller on new batches. In a quick exploratory run, crossover rate and elitism changed the results much less, so only the mutation rate is shown. Figure: `results/mutation_rate_study.png`.
+
+In a separate full run, the whole notebook took about 9 minutes on our test PC, about 6 of them for Step 8.
 
 ---
 
