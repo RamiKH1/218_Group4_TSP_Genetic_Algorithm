@@ -20,6 +20,7 @@ This repository contains a Python implementation of a **Genetic Algorithm (GA)**
 ├── 218_Project.ipynb              # Main Jupyter Notebook (data processing, algorithms, experiments, plots)
 ├── talabat_enhanced_orders.csv    # Synthetic delivery-order dataset (source in Section 3)
 ├── requirements.txt               # Python packages needed to run the notebook
+├── results/                       # CSV tables and figures written by Step 6 of the notebook
 └── README.md                      # Project documentation and setup instructions
 ```
 
@@ -85,15 +86,28 @@ This repository contains a Python implementation of a **Genetic Algorithm (GA)**
 ## 6. Reproducibility & Key Results
 To make results reproducible, fixed random seeds are applied to both Python's `random` module and `numpy.random`: `SEED = 42` at the start, and `SEED + run` for each repeated GA run.
 
+Run times depend on the computer. All times below come from one run of the notebook on our test PC.
+
 ### Benchmark Summary (15-Stop Cairo Delivery Route, 10 Runs)
 | Algorithm | Mean Distance (km) | Std Dev (km) | Best Distance (km) | Mean Runtime (s) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Greedy (Nearest Neighbor)** | 18.22 | 0.00 | 18.22 | 0.0001 |
-| **Genetic Algorithm (10 Runs)** | 15.84 | 0.60 | 15.34 | 1.2887 |
-| **Brute-Force (15 Stops)** | Infeasible ($14!$) | N/A | N/A | > 24 hrs (estimate, not measured) |
+| **Greedy (Nearest Neighbor)** | 18.22 | 0.00 | 18.22 | 0.00003 |
+| **Genetic Algorithm (10 Runs)** | 15.84 | 0.60 | 15.34 | 0.53 |
+| **Brute-Force (15 Stops)** | Infeasible ($14!$) | N/A | N/A | at least 3 days (estimated in Step 6) |
 
 * **Optimality Verification ($N = 9$ subset):** The GA matched the exact Brute-Force global minimum of **12.60 km** (outperforming Greedy's 14.04 km).
-* **Full Route Efficiency ($N = 15$):** The best of the 10 GA runs reduced total travel distance by **2.88 km (15.8%)** compared to the Greedy baseline. The average GA run reduced it by **2.38 km (13.1%)**.
+* **Full Route Efficiency ($N = 15$):** The best of the 10 GA runs reduced total travel distance by **2.88 km (15.8%)** compared to the Greedy baseline. The average GA run reduced it by **2.39 km (13.1%)**.
+
+### Step 6: 10 Delivery Batches (Cairo, 2 June 2025, 08:00–17:00)
+Each batch takes the non-cancelled Cairo orders from one hour. Every route starts and ends at a hub in the centre of the Cairo delivery area. The GA keeps its default settings and runs 10 times per batch (seeds 42–51). Full tables are in `results/`.
+
+| Experiment | Result |
+| :--- | :--- |
+| **A. GA vs exact optimum** (hub + 9 drop-offs) | The GA found the exact shortest route in **86 of 100 runs**. Mean gap to the optimum: **0.26%** (worst run 8.68%), against **7.20%** for greedy. The GA's route was longer than greedy's in 4 of 100 runs. |
+| **B. Brute-force time** | 11 stops (3.6 million routes) took 10.9 s. Estimated at **at least 3 days for 15 stops** and over 200,000 years for 21 stops. |
+| **C. GA vs greedy** (hub + 20 drop-offs) | The GA saved **9.4%** distance on average (range −6.0% to 22.7%): **86 wins, 3 ties, 11 losses** in 100 runs. Its average route was shorter in 9 of 10 batches. One GA run takes about 0.9 s. |
+
+Figures: `results/route_over_generations.png` (best route so far at generations 1, 10, 25, 50, 100 and 400 of one run) and `results/experiment_summary.png` (brute-force time vs stops, and greedy vs GA per batch).
 
 ---
 
