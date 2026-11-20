@@ -131,6 +131,6 @@ In a separate full run, the whole notebook took about 9 minutes on our test PC, 
 ## 7. Team Members
 * **Member 1:** *[Rami / 9176391]* 
 * **Member 2:** *[Jordan / 8328997]* 
-* **Member 3:** *[Taha / 8328997]* 
+* **Member 3:** *[Taha / 7712674]* 
 * **Member 4:** *[Mohammad / 7449148]* 
 * **Member 5:** *[Tasnia / 9095822]* 
